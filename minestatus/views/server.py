@@ -17,7 +17,6 @@ def ping(host, port=None):
 def _ping(host, port=None):
     errors = list()
     info = dict()
-    cont = True
     
     if port is None:
         port = 25565
@@ -26,17 +25,15 @@ def _ping(host, port=None):
             host, port = srv.get_server(host)
         except NXDOMAIN:
             errors.append('Non-existent Internet Domain')
-            cont = False
         except DNSException, e:
             errors.append(str(e))
 
-    if cont:
-        try:
-            info = serverlist.get_info(host, port, timeout=1)
-        except IOError, e: # catches socket.error
-            errors.append(e.strerror or e.message)
-        except Exception, e:
-            errors.append(e.message)
+    try:
+        info = serverlist.get_info(host, port, timeout=1)
+    except IOError, e: # catches socket.error
+        errors.append(e.strerror or e.message)
+    except Exception, e:
+        errors.append(e.message)
     
     info['host'] = host
     info['port'] = port
