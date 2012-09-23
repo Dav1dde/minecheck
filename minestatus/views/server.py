@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify, send_from_directory, redirect, request, abort
+from flask import Blueprint, jsonify, send_from_directory, redirect as fredirect, request, abort
 
 from dns.exception import DNSException
 from dns.resolver import NXDOMAIN
@@ -52,9 +52,9 @@ def _ping(host, port=None):
 def redirect(host, port=None):
     if 'green' in request.args and 'red' in request.args:
         if _ping(host, port)['online']:
-            return redirect(request.args['green'])
+            return fredirect(request.args['green'])
         else:
-            return redirect(request.args['red'])
-    else:
-        return abort(400)
+            return fredirect(request.args['red'])
+
+    return abort(400)
     
