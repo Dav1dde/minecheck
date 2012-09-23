@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, send_from_directory, redirect, request, abort
 
 from dns.exception import DNSException
 from dns.resolver import NXDOMAIN
@@ -12,6 +12,9 @@ mod = Blueprint('server', __name__)
 @mod.route('/ping/<host>/')
 @mod.route('/ping/<host>/<int:port>/')
 def ping(host, port=None):
+    return jsonify(**_ping(host, port))
+
+def _ping(host, port=None):
     errors = list()
     info = dict()
     cont = True
@@ -41,7 +44,17 @@ def ping(host, port=None):
     info['errors'] = errors
     info['online'] = 'players' in info
     
-    return jsonify(**info)
+    return info
         
-    
+
+@mod.route('/redirect/<host>/')
+@mod.route('/redirect/<host>/<int:port>')
+def redirect(host, port=None):
+    if 'green' in request.args and 'red' in request.args:
+        if _ping(host, port)['online']:
+            return redirect(request.args['green'])
+        else:
+            return redirect(request.args['red'])
+    else:
+        return abort(400)
     
