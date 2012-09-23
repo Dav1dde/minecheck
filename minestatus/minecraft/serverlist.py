@@ -1,9 +1,11 @@
 import socket
 
 # https://gist.github.com/1209061
-def get_info(host, port):
+def get_info(host, port, timeout=3):
     #Set up our socket
+    #s = socket.create_connection((host, port), timeout=timeout) 
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    s.settimeout(timeout)
     s.connect((host, port))
 
     #Send 0xFE: Server list ping
