@@ -6,6 +6,6 @@ def get_server(host):
     
     answer = sorted(answers, key=lambda x: x.priority)[0]
     
-    return '.'.join(answer.target.labels), answer.port
-    
+    return '.'.join(filter(None, answer.target.labels)), answer.port
+
     
