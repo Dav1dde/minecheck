@@ -20,6 +20,7 @@ def ping(host, port=25565):
         
     info['success'] = len(errors) == 0
     info['errors'] = errors
+    info['online'] = 'players' in info
     
     return jsonify(**info)
         
