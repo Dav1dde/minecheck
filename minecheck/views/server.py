@@ -1,10 +1,10 @@
-from flask import Blueprint, jsonify, send_from_directory, redirect as fredirect, request, abort
+from flask import Blueprint, jsonify, redirect as fredirect, request, abort
 
 from dns.exception import DNSException
 from dns.resolver import NXDOMAIN
 
-from minestatus.minecraft import serverlist
-from minestatus.minecraft import srv
+from minecheck.minecraft import serverlist
+from minecheck.minecraft import srv
 
 mod = Blueprint('server', __name__)
 

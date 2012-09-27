@@ -8,4 +8,4 @@ keepalive = 1
 #user = 'minestatus'
 errorlog = os.path.join(base_path, 'log/error.log')
 loglevel = 'warning'
-proc_name = 'minestatus gunicorn'
+proc_name = 'minecheck gunicorn'

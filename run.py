@@ -1,3 +1,3 @@
-from minestatus import app
+from minecheck import app
 
 app.run(debug=True)

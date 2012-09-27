@@ -17,6 +17,6 @@ app.secret_key = entropy
 
 # blueprints
 
-from minestatus.views import server
+from minecheck.views import server
 
 app.register_blueprint(server.mod)
